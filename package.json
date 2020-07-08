@@ -1,0 +1,15 @@
+{
+  "name": "backend-platzi-video-api",
+  "version": "1.0.0",
+  "description": "Platzi Video API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backend",
+    "API"
+  ],
+  "author": "@sntwandy",
+  "license": "MIT"
+}
