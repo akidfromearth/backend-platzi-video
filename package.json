@@ -4,12 +4,34 @@
   "description": "Platzi Video API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "DEBUG=app* nodemon",
+    "start": "NODE_ENV=production node index"
   },
   "keywords": [
     "backend",
     "API"
   ],
   "author": "@sntwandy",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
 }
