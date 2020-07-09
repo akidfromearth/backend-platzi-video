@@ -83,7 +83,7 @@ function moviesApi(app) {
   router.delete('/:movieId', async (req, res, next) => {
     const { movieId } = req.params;
     try {
-      const deleteMovieId = await moviesService.delete( { movieId } );
+      const deleteMovieId = await moviesService.deleteMovie( { movieId } );
       res.status(200).json({
         data: deleteMovieId,
         message: 'movie deleted'
