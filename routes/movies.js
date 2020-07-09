@@ -5,12 +5,13 @@ function moviesApi(app) {
   const router = express.Router();
   app.use('/api/movies', router);
 
-  const moviesService = new MoviesService.MoviesService();
+  const moviesService = new MoviesService();
 
   // get all movies
   router.get('/', async (req, res, next) => {
     const { tags } = req.query;
     try {
+      //throw new Error('Error getting movies');
       const movies = await moviesService.getMovies( { tags } )
       res.status(200).json({
         data: movies,
