@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const helmet = require('helmet');
 
 const { config } = require('./config');
 const moviesApi = require('./routes/movies');
@@ -8,9 +10,9 @@ const notFoundHandler = require('./utils/middlewares/notFoundHandler');
 
 // Middleware Body Parser
 app.use(express.json());
-
+app.use(cors());
+app.use(helmet());
 moviesApi(app);
-
 // Catch 404 error
 app.use(notFoundHandler);
 
@@ -21,5 +23,6 @@ app.use(errorHandler);
 
 
 app.listen(config.port, function () {
+  console.log(`CORS-enabled web server listening on port ${config.port}`)
   console.log(`Listening http://localhost:${config.port}`);
 });
