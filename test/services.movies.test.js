@@ -5,11 +5,11 @@ const { getAllStub, MongoLibMock } = require('../utils/mocks/mongoLib');
 const { moviesMock } = require('../utils/mocks/movies');
 
 describe('services - movies', function() {
-  const MoviesServcices = proxyquire('../services/movies',{
+  const MoviesServices = proxyquire('../services/movies',{
     '../lib/mongo': MongoLibMock,
   });
 
-  const moviesService = new MoviesServcices();
+  const moviesService = new MoviesServices();
 
   describe('When get movies method is called',  async function(){
     it('Should call the getall MongoLib mehtod', async function() {
