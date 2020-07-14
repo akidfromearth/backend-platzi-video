@@ -8,6 +8,7 @@ const { config } = require('./config');
 const moviesApi = require('./routes/movies');
 const { logErrors, wrapErrors, errorHandler } = require('./utils/middlewares/errorHandlers');
 const notFoundHandler = require('./utils/middlewares/notFoundHandler');
+const authApi = require('./routes/auth');
 
 // Middleware Body Parser
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(helmet());
 
 // movies route
+authApi(app);
 moviesApi(app);
 userMoviesApi(app);
 

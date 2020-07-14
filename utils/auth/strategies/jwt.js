@@ -7,7 +7,7 @@ const { config } = require('../../../config');
 
 passport.use(new Strategy({
   secretOrKey: config.authJwtSecret,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
   },
   async function(tokenPayload, cb) {
     const usersServie = new UsersService();
@@ -20,7 +20,7 @@ passport.use(new Strategy({
       delete user.password;
       cb(null, { ...user, scopes: tokenPayload.scopes });
     }catch(err) {
-      cb(err);
+      return cb(err);
     };
   }
 ));
