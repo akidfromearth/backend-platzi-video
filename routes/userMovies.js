@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 
 const UserMoviesService = require('../services/userMovies');
 const validationHandler = require('../utils/middlewares/validationHandler');
@@ -7,6 +8,9 @@ const { movieIdSchema } = require('../utils/schemas/movies'); //eslint-disable-l
 const { userIdChema, userIdSchema } = require('../utils/schemas/users'); //eslint-disable-line
 const {  createUserMovieSchema } = require('../utils/schemas/userMovies'); //eslint-disable-line
 
+//JWT Strategy
+require('../utils/auth/strategies/jwt');
+
 function userMoviesApi(app) { //eslint-disable-line
   const router = express.Router();
 
@@ -14,7 +18,7 @@ function userMoviesApi(app) { //eslint-disable-line
 
   const userMoviesService = new UserMoviesService();
 
-  router.get('/', validationHandler({ userId: userIdSchema }, 'query'),
+  router.get('/', passport.authenticate('jwt', { session: false }) ,validationHandler({ userId: userIdSchema }, 'query'),
   async function(req, res, next) {
     const { userId } = req.query;
 
@@ -29,7 +33,7 @@ function userMoviesApi(app) { //eslint-disable-line
     };
   });
 
-  router.post('/', validationHandler(createUserMovieSchema),
+  router.post('/', passport.authenticate('jwt', { session: false }) ,validationHandler(createUserMovieSchema),
   async function(req, res, next) {
     const {body: userMovie} = req;
 
@@ -44,7 +48,7 @@ function userMoviesApi(app) { //eslint-disable-line
     };
   });
 
-  router.delete('/:userMovieId', validationHandler({ userMovieId: movieIdSchema }, 'params'), 
+  router.delete('/:userMovieId', passport.authenticate('jwt', { session: false }) ,validationHandler({ userMovieId: movieIdSchema }, 'params'), 
   async function(req, res, next ) {
     const { userMovieId } = req.params;
 
