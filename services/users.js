@@ -18,7 +18,8 @@ class UsersService {
     const createUserId = await this.mongoDB.create(this.collection, {
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      isAdmin: false
     });
     return createUserId;
   };
