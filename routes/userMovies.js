@@ -7,6 +7,7 @@ const validationHandler = require('../utils/middlewares/validationHandler');
 const { movieIdSchema } = require('../utils/schemas/movies'); //eslint-disable-line
 const { userIdChema, userIdSchema } = require('../utils/schemas/users'); //eslint-disable-line
 const {  createUserMovieSchema } = require('../utils/schemas/userMovies'); //eslint-disable-line
+const scopesValidationHandler = require('../utils/middlewares/scopesValidationHandler');
 
 //JWT Strategy
 require('../utils/auth/strategies/jwt');
@@ -18,7 +19,8 @@ function userMoviesApi(app) { //eslint-disable-line
 
   const userMoviesService = new UserMoviesService();
 
-  router.get('/', passport.authenticate('jwt', { session: false }) ,validationHandler({ userId: userIdSchema }, 'query'),
+  router.get('/', passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:user-movies']),validationHandler({ userId: userIdSchema }, 'query'),
   async function(req, res, next) {
     const { userId } = req.query;
 
@@ -33,7 +35,8 @@ function userMoviesApi(app) { //eslint-disable-line
     };
   });
 
-  router.post('/', passport.authenticate('jwt', { session: false }) ,validationHandler(createUserMovieSchema),
+  router.post('/', passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['create:user-movies']),validationHandler(createUserMovieSchema),
   async function(req, res, next) {
     const {body: userMovie} = req;
 
@@ -48,7 +51,8 @@ function userMoviesApi(app) { //eslint-disable-line
     };
   });
 
-  router.delete('/:userMovieId', passport.authenticate('jwt', { session: false }) ,validationHandler({ userMovieId: movieIdSchema }, 'params'), 
+  router.delete('/:userMovieId', passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['delete:user-movies']),validationHandler({ userMovieId: movieIdSchema }, 'params'), 
   async function(req, res, next ) {
     const { userMovieId } = req.params;
 
