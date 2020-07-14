@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
 
+const userMoviesApi = require('./routes/userMovies');
 const { config } = require('./config');
 const moviesApi = require('./routes/movies');
 const { logErrors, wrapErrors, errorHandler } = require('./utils/middlewares/errorHandlers');
@@ -12,7 +13,11 @@ const notFoundHandler = require('./utils/middlewares/notFoundHandler');
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+
+// movies route
 moviesApi(app);
+userMoviesApi(app);
+
 // Catch 404 error
 app.use(notFoundHandler);
 
