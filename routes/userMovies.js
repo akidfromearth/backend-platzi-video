@@ -44,7 +44,9 @@ function userMoviesApi(app) { //eslint-disable-line
       const createUserMovieId = await userMoviesService.createUserMovie({ // eslint-disable-line
         userMovie,
       });
-      res.status(2001).json({createUserMovieId
+      res.status(201).json({
+        data: createUserMovieId,
+        message: 'user movie created'
       });
     }catch(err) {
       next(err);
