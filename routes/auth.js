@@ -19,7 +19,7 @@ function authApi(app) {
   const userService = new usersService();
 
   router.post('/sign-in', async function(req, res, next) {
-    const { apiKeyToken } = req.body;
+    const { data: apiKeyToken } = req.body;
 
     if (!apiKeyToken) {
       next(boom.unauthorized('apiKeyToken is required'));
